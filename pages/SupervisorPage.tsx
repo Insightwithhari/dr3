@@ -33,17 +33,17 @@ const SupervisorPage: React.FC = () => {
         
         <div className="space-y-10 mb-10">
           <SupervisorProfileCard 
-              name="Dr. Evelyn Reed"
-              title="Principal Investigator"
-              imageUrl="https://i.pravatar.cc/150?img=12"
-              bio="Dr. Reed is a leading expert in computational biology with over 20 years of experience in protein engineering and bioinformatics. Her work focuses on leveraging artificial intelligence to accelerate drug discovery and develop novel therapeutic proteins."
+              name="Dr. Rimpy Kaur Chowhan"
+              title="Assistant Professor"
+              imageUrl="https://envs.sh/icX.jpg"
+              bio="She is currently serving as an Assistant Professor at Acharya Narendra Dev College, University of Delhi. Her research expertise encompasses protein science, protein aggregation, computational biology, and neurodegenerative disorders. She is presently leading multiple research projects focusing on elucidating the conformational dynamics of disease-associated proteins and exploring novel therapeutic targets against antimicrobial-resistant Klebsiella pneumoniae. "
               glowClasses="hover:shadow-blue-500/20 dark:hover:shadow-blue-400/10"
           />
           <SupervisorProfileCard 
-              name="Dr. Kenji Tanaka"
-              title="Senior Research Scientist"
-              imageUrl="https://i.pravatar.cc/150?img=58"
-              bio="Dr. Tanaka specializes in structural bioinformatics and molecular dynamics simulations. His research is pivotal in understanding protein-ligand interactions and designing next-generation enzymes for industrial applications."
+              name="Dr. Archana Pandey"
+              title="Assistant Professor"
+              imageUrl="https://envs.sh/icy.jpg"
+              bio="She is an Associate Professor at Acharya Narendra Dev College, University of Delhi. Her areas of expertise include molecular biology, animal models, and bioluminescence. She is currently supervising several research projects focused on the development of biosensing tools and advancing cancer research."
               glowClasses="hover:shadow-indigo-500/20 dark:hover:shadow-indigo-400/10"
           />
         </div>
@@ -51,21 +51,45 @@ const SupervisorPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <InfoCard title="Ongoing Projects">
                 <ul className="list-disc list-inside">
-                    <li>Project Chimera: Protein stability analysis (Due: next Friday)</li>
-                    <li>Project Griffin: In-silico drug docking simulations</li>
-                    <li>Project Hydra: AI-driven gene sequencing</li>
+                    <li>Finding Drug Targets and Developing Novel Strategies for Treating AMR Klebsiella pneumoniae
+Exploring potential therapeutic targets and innovative approaches to combat antibiotic-resistant Klebsiella pneumoniae.
+</li>
+                    <li>MDM2 Mutational Blueprint: An In-Silico Expedition into Cancer’s Molecular Root
+Mapping mutational patterns in MDM2 using computational methods to uncover molecular drivers of cancer.
+
+</li>
+                    <li>Engineering Bacterial Cellulose into a Sustainable Leather Alternative
+Developing eco-friendly leather substitutes from bacterial cellulose for sustainable material applications.
+
+</li>
+                    <li>Computational Analysis of MDM2 Conformational Dynamics: Bridging Structure and Function
+Investigating the dynamic structural behavior of MDM2 protein to understand its functional mechanisms.
+</li>
+                    <li>Studying Effect of Probiotics on Cancer Progression Using Cancer Cell Lines
+Assessing how probiotics influence cancer cell behavior and progression in vitro.</li>
                 </ul>
             </InfoCard>
             <InfoCard title="Recent Publications">
                 <ul className="list-disc list-inside">
-                    <li>"In-Silico Protein Folding" - J. Mol. Biol. (Accepted)</li>
-                    <li>"Thermostability Mutants of Lysozyme" - Protein Sci. (Published)</li>
+                    <p>Acute Osmotic and pH Shock to Bioluminescent Bacteria Is 
+Reversible in Terms of Luminescence Response
+ Rajeev Ranjan,  Sakshi Goswami,  Navendu Sharma, Lalit Mohan Vashishth,  Meenu Singh,  Yeshvandra Verma,
+Suresh Vir Singh Rana,  Valentina Kratasyuk,  Satyandra Kumar, Archna Pandey
+
+A bioluminescence-based bioassay for hazard assessment of food-grade 
+silver foil (E174) and its validation by atomic absorption spectroscopy
+ Rajeev Ranjan, Meenu Singh, Sakshi Goswami, Yeshvandra Verma, Archna Pandey
+Niharika Sachdev, Sangeeta Goomer, Laishram Rajender Kumar Singh, and Rimpy 
+Kaur Chowhan (2023). Preparation and nutritional characterisation of protein 
+concentrate prepared from foxtail millet (Setaria italica). Food Science and Technology 
+International 0(0). doi:10.1177/10820132231159819 
+
+Rimpy Kaur Chowhan, Sunaina Hotumalani, Hamidur Rahaman, and 
+LasihramRajendrakumar Singh. (2021) pH induced conformational alteration in human 
+peroxiredoxin 6 might be responsible for its resistance against lysosomal pH or high 
+temperature. Scientific reports (NatureResearch) 11, 9657.
+                    </p>
                 </ul>
-            </InfoCard>
-            <InfoCard title="Research Interests" className="md:col-span-2">
-                <p>
-                    Our lab focuses on the intersection of computational biology and artificial intelligence. Key areas of interest include rational protein design, predicting protein-protein interactions, and developing novel algorithms for analyzing large-scale genomic data. We are particularly interested in engineering enzymes with enhanced catalytic activity and stability for industrial applications.
-                </p>
             </InfoCard>
         </div>
       </div>
