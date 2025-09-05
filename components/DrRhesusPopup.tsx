@@ -24,7 +24,7 @@ const DrRhesusPopup: React.FC<DrRhesusPopupProps> = ({ isOpen, onClose }) => {
         <img 
             src="https://envs.sh/icl.jpg" 
             alt="Dr. Rhesus" 
-            className="w-28 h-28 rounded-full border-4 border-blue-500 absolute -top-14 left-1/2 -translate-x-1/2"
+            className="w-28 h-28 rounded-full border-4 border-blue-500 absolute -top-14 left-1/2 -translate-x-1/2 object-cover"
         />
         <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Dr. Rhesus</h2>
         <p className="text-blue-600 dark:text-blue-400 font-medium">Expert Bioinformatics Research Assistant</p>
