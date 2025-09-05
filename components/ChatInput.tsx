@@ -25,13 +25,13 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 bg-slate-200/50 dark:bg-slate-800/50 backdrop-blur-sm border-t border-slate-300 dark:border-slate-700">
+    <form onSubmit={handleSubmit} className="p-4 bg-slate-100/80 dark:bg-slate-800/50 backdrop-blur-sm border-t border-slate-200 dark:border-slate-700">
       <div className="relative">
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          className="w-full bg-white dark:bg-slate-700 text-slate-800 dark:text-white rounded-lg p-3 pr-12 border border-slate-400 dark:border-slate-600 focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none transition-shadow"
+          className="w-full bg-white dark:bg-slate-700 text-slate-900 dark:text-white rounded-lg p-3 pr-12 border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none transition-shadow"
           placeholder="Ask Dr. Rhesus..."
           rows={1}
           disabled={isLoading}
