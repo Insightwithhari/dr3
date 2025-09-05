@@ -7,6 +7,8 @@ import ChatInput from '../components/ChatInput';
 import { RhesusIcon, DownloadIcon, ProjectIcon } from '../components/icons';
 import PDBViewer from '../components/PDBViewer';
 import ProjectListPage from '../components/ProjectListPage';
+import PlasmidResultsViewer from '../components/PlasmidResultsViewer';
+import type { PlasmidResult } from '../components/PlasmidResultsViewer';
 
 const BlinkingCursor: React.FC = () => <span className="inline-block w-2 h-5 bg-blue-500 animate-pulse ml-1" />;
 
@@ -41,7 +43,7 @@ const ChatbotComponent: React.FC = () => {
   const parseResponse = useCallback((responseText: string): React.ReactNode => {
     const parts: (string | React.ReactElement)[] = [];
     let lastIndex = 0;
-    const regex = /\[(PDB_VIEW|MUTATION_DOWNLOAD|BLAST_RESULT|PUBMED_SUMMARY):([^\]]+)\]/g;
+    const regex = /\[(PDB_VIEW|MUTATION_DOWNLOAD|BLAST_RESULT|PUBMED_SUMMARY|PLASMID_SEARCH_RESULT):([\s\S]+?)\]/g;
     
     let match;
     while ((match = regex.exec(responseText)) !== null) {
@@ -75,6 +77,20 @@ const ChatbotComponent: React.FC = () => {
           break;
         case 'PUBMED_SUMMARY':
           parts.push(<div key={`${command}-${payload}`} className="mt-4 p-3 border-l-4 border-blue-500 bg-slate-50 dark:bg-slate-800 rounded-r-md">{payload.trim()}</div>);
+          break;
+        case 'PLASMID_SEARCH_RESULT':
+          try {
+            const results: PlasmidResult[] = JSON.parse(payload.trim());
+            parts.push(<PlasmidResultsViewer key={command} results={results} />);
+          } catch (e) {
+            console.error("Failed to parse PLASMID_SEARCH_RESULT JSON:", e, "Payload:", payload);
+            parts.push(
+              <div key={`${command}-error`} className="mt-4 p-4 bg-red-100 dark:bg-red-900/50 border border-red-400 dark:border-red-600 rounded-lg text-red-700 dark:text-red-300">
+                <p className="font-bold">Error Displaying Results</p>
+                <p>There was an issue parsing the plasmid search results. The data might be malformed.</p>
+              </div>
+            );
+          }
           break;
       }
       lastIndex = match.index + fullMatch.length;
@@ -146,8 +162,8 @@ const ChatbotComponent: React.FC = () => {
   }, [isLoading, parseResponse]);
 
   return (
-    <div className="flex flex-col h-full bg-white dark:bg-slate-900">
-      <header className="flex items-center p-4 bg-slate-50/80 dark:bg-slate-800/80 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700 shadow-sm">
+    <div className="flex flex-col h-full">
+      <header className="flex items-center p-4 bg-slate-50 dark:bg-slate-800/80 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700 shadow-sm">
             <RhesusIcon className="w-8 h-8 text-blue-500 dark:text-blue-400"/>
             <div className="ml-3">
                 <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">Dr. Rhesus</h1>
@@ -193,7 +209,7 @@ const ChatbotPage: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col h-full relative bg-white dark:bg-slate-900">
+        <div className="flex flex-col h-full relative bg-white dark:bg-slate-900 transition-colors duration-300">
             <div className="flex-grow pb-16 overflow-y-auto">
                 {renderContent()}
             </div>
