@@ -6,9 +6,8 @@ import ChatbotPage from './pages/ChatbotPage';
 import SupervisorPage from './pages/SupervisorPage';
 import AboutUsPage from './pages/AboutUsPage';
 import ContactUsPage from './pages/ContactUsPage';
-import { MenuIcon, RhesusIcon } from './components/icons';
+import { MenuIcon } from './components/icons';
 import ThemeToggle from './components/ThemeToggle';
-import LiveClock from './components/LiveClock';
 import DrRhesusPopup from './components/DrRhesusPopup';
 
 export type Page = 'home' | 'chatbot' | 'supervisor' | 'about' | 'contact';
@@ -42,7 +41,9 @@ const App: React.FC = () => {
 
   const handleAuthentication = useCallback(() => {
     setIsAuthenticated(true);
-    window.location.hash = '#chatbot';
+    // Use replace to prevent the back button from going to the password-protected route
+    window.location.replace('#chatbot');
+    setCurrentPage('chatbot');
   }, []);
   
   useEffect(() => {
@@ -58,7 +59,7 @@ const App: React.FC = () => {
     
     window.addEventListener('hashchange', handleHashChange);
     
-    // Initial check
+    // Initial check on load
     handleHashChange();
     if (!window.location.hash) {
         window.location.hash = '#home';
@@ -90,8 +91,8 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white font-sans flex flex-col">
-      <ProteinBackground theme={theme} />
+    <div className="relative min-h-screen bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-sans flex flex-col">
+      <ProteinBackground theme={theme} isVisible={currentPage === 'home'} />
       <Sidebar 
         isOpen={isSidebarOpen} 
         onClose={() => setSidebarOpen(false)} 
@@ -100,33 +101,26 @@ const App: React.FC = () => {
       />
       
       <div className="relative z-10 flex flex-col flex-grow">
-        <header className="flex items-center justify-between p-4 bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm border-b border-gray-300/50 dark:border-gray-700/50 shadow-lg">
-          <div className="flex items-center">
-            <button 
-              onClick={() => setSidebarOpen(true)} 
-              className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors mr-4"
-              aria-label="Open navigation menu"
-            >
-              <MenuIcon />
-            </button>
-            <div className="hidden sm:block">
-                <LiveClock />
-            </div>
-          </div>
+        <header className="flex items-center justify-between p-4 bg-white/70 dark:bg-slate-900/70 backdrop-blur-sm border-b border-slate-300/50 dark:border-slate-700/50 shadow-lg">
+          <button 
+            onClick={() => setSidebarOpen(true)} 
+            className="p-2 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+            aria-label="Open navigation menu"
+          >
+            <MenuIcon />
+          </button>
           <div className="text-center absolute left-1/2 -translate-x-1/2">
-            <h1 className="text-2xl font-bold text-cyan-600 dark:text-cyan-300 tracking-wider">The Dream Lab</h1>
-            <p className="text-sm text-gray-600 dark:text-gray-400">- we explore the questions we want the answers for.</p>
+            <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400 tracking-wider">The Dream Lab</h1>
+            <p className="text-sm text-slate-600 dark:text-slate-400">- we explore the questions we want the answers for.</p>
           </div>
-          <div className="flex items-center">
-            <ThemeToggle theme={theme} setTheme={setTheme} />
-          </div>
+          <ThemeToggle theme={theme} setTheme={setTheme} />
         </header>
         
-        <main className="flex-1 overflow-y-auto bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
+        <main className="flex-1 overflow-y-auto bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
           {renderPage()}
         </main>
 
-        <footer className="p-4 bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm border-t border-gray-300/50 dark:border-gray-700/50 text-center text-xs text-gray-600 dark:text-gray-500">
+        <footer className="p-4 bg-white/70 dark:bg-slate-900/70 backdrop-blur-sm border-t border-slate-300/50 dark:border-slate-700/50 text-center text-xs text-slate-600 dark:text-slate-500">
             <p className="mb-1">Created by Hariom 👨‍💻</p>
             © {new Date().getFullYear()} The Dream Lab. All rights reserved.
         </footer>
@@ -134,10 +128,15 @@ const App: React.FC = () => {
 
       <button
         onClick={() => setRhesusPopupOpen(true)}
-        className="fixed bottom-6 right-6 z-20 p-3 bg-cyan-600 text-white rounded-full shadow-lg hover:bg-cyan-500 transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-cyan-500"
+        className="fixed bottom-6 right-6 z-20 w-16 h-16 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-500 transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-blue-500"
         aria-label="About Dr. Rhesus"
+        style={{
+          backgroundImage: `url('https://i.pravatar.cc/150?u=dr-rhesus-icon')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          border: '2px solid white'
+        }}
       >
-        <RhesusIcon className="w-8 h-8"/>
       </button>
 
       <DrRhesusPopup isOpen={isRhesusPopupOpen} onClose={() => setRhesusPopupOpen(false)} />
