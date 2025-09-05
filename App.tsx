@@ -67,7 +67,7 @@ const App: React.FC = () => {
   }, [isAuthenticated]);
 
   if (!isAuthenticated) {
-    return <LoginPage onAuthenticate={handleAuthentication} />;
+    return <LoginPage onAuthenticate={handleAuthentication} theme={theme} />;
   }
 
   const renderPage = () => {
@@ -112,9 +112,6 @@ const App: React.FC = () => {
           </button>
           <div className="text-center absolute left-1/2 -translate-x-1/2">
             <h1 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-200 tracking-wider">Welcome to The Dream Lab</h1>
-            <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-1 transition-all duration-300 hover:text-blue-500 dark:hover:text-blue-400 hover:shadow-[0_0_15px_theme(colors.blue.500/50%)] dark:hover:shadow-[0_0_15px_theme(colors.blue.400/40%)] rounded-md px-2">
-              - we explore the questions we want the answers for.
-            </p>
           </div>
           <ThemeToggle theme={theme} setTheme={setTheme} />
         </header>
