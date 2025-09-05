@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useCallback } from 'react';
 import type { Chat } from '@google/genai';
 import { Message, MessageAuthor } from '../types';
@@ -80,7 +81,27 @@ const ChatbotComponent: React.FC = () => {
           break;
         case 'PLASMID_SEARCH_RESULT':
           try {
-            const results: PlasmidResult[] = JSON.parse(payload.trim());
+            let jsonPayload = payload.trim();
+
+            // Clean up potential markdown fences
+            const markdownRegex = /^`{3}(json)?\n?([\s\S]+)\n?`{3}$/;
+            const markdownMatch = jsonPayload.match(markdownRegex);
+            if (markdownMatch && markdownMatch[2]) {
+              jsonPayload = markdownMatch[2].trim();
+            }
+
+            // Handle empty payload for no results
+            if (!jsonPayload) {
+                parts.push(<PlasmidResultsViewer key={command} results={[]} />);
+                break;
+            }
+            
+            // Remove trailing comma if it exists
+            if (jsonPayload.endsWith(',')) {
+                jsonPayload = jsonPayload.slice(0, -1);
+            }
+
+            const results: PlasmidResult[] = JSON.parse(`[${jsonPayload}]`);
             parts.push(<PlasmidResultsViewer key={command} results={results} />);
           } catch (e) {
             console.error("Failed to parse PLASMID_SEARCH_RESULT JSON:", e, "Payload:", payload);
