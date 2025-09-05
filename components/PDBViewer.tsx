@@ -76,16 +76,16 @@ const PDBViewer: React.FC<PDBViewerProps> = ({ pdbId }) => {
   };
 
   return (
-    <div className="mt-4 rounded-lg overflow-hidden border border-gray-300 dark:border-gray-700 bg-black min-h-[400px] w-full max-w-2xl relative group">
+    <div className="mt-4 rounded-lg overflow-hidden border border-slate-300 dark:border-slate-700 bg-black min-h-[400px] w-full max-w-2xl relative">
       {isLoading && <div className="absolute inset-0 flex items-center justify-center text-white bg-black bg-opacity-70 z-10">Loading 3D View...</div>}
       {error && <div className="absolute inset-0 flex items-center justify-center text-red-400 p-4 text-center z-10">{error}</div>}
       <div ref={viewerRef} style={{ width: '100%', height: '400px', position: 'relative' }} />
       {!isLoading && !error && (
-        <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-            <button onClick={handleShare} className="p-2 bg-gray-800/70 text-white rounded-full hover:bg-gray-700" title="Share PDB Link">
+        <div className="absolute top-2 right-2 flex gap-2 z-10">
+            <button onClick={handleShare} className="p-2 bg-slate-800/70 text-white rounded-full hover:bg-slate-700 transition-colors" title="Share PDB Link">
                 <ShareIcon />
             </button>
-            <button onClick={handleDownload} className="p-2 bg-gray-800/70 text-white rounded-full hover:bg-gray-700" title="Download PDB file">
+            <button onClick={handleDownload} className="p-2 bg-slate-800/70 text-white rounded-full hover:bg-slate-700 transition-colors" title="Download PDB file">
                 <DownloadIcon />
             </button>
         </div>
