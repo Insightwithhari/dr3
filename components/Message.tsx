@@ -14,16 +14,19 @@ const MessageComponent: React.FC<MessageProps> = ({ message }) => {
       name: 'You',
       icon: <UserIcon className="w-6 h-6 text-slate-600 dark:text-slate-400" />,
       align: 'items-start',
+      iconBg: 'bg-slate-100 dark:bg-slate-700',
     },
     [MessageAuthor.RHESUS]: {
       name: 'Dr. Rhesus',
       icon: <RhesusIcon className="w-6 h-6 text-blue-600 dark:text-blue-400" />,
       align: 'items-start',
+      iconBg: 'bg-blue-100 dark:bg-blue-900/50',
     },
     [MessageAuthor.SYSTEM]: {
       name: 'System',
       icon: null,
       align: 'items-center',
+      iconBg: '',
     },
   };
 
@@ -33,7 +36,7 @@ const MessageComponent: React.FC<MessageProps> = ({ message }) => {
     <div className={`p-4 md:p-6 flex flex-col ${details.align}`}>
       <div className="flex items-start space-x-4 max-w-full">
         {details.icon && (
-            <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${isUser ? 'bg-slate-100 dark:bg-slate-700' : 'bg-slate-100 dark:bg-slate-800'}`}>
+            <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${details.iconBg}`}>
                 {details.icon}
             </div>
         )}
