@@ -4,11 +4,11 @@ import { Message, MessageAuthor } from '../types';
 import { createChatSession, sendMessageStream } from '../services/geminiService';
 import ChatWindow from '../components/ChatWindow';
 import ChatInput from '../components/ChatInput';
-import { RhesusIcon, DownloadIcon } from '../components/icons';
+import { RhesusIcon, DownloadIcon, ProjectIcon } from '../components/icons';
 import PDBViewer from '../components/PDBViewer';
 import ProjectListPage from '../components/ProjectListPage';
 
-const BlinkingCursor: React.FC = () => <span className="inline-block w-2 h-5 bg-cyan-400 animate-pulse ml-1" />;
+const BlinkingCursor: React.FC = () => <span className="inline-block w-2 h-5 bg-blue-400 animate-pulse ml-1" />;
 
 const ChatbotComponent: React.FC = () => {
     const [messages, setMessages] = useState<Message[]>([
@@ -62,7 +62,7 @@ const ChatbotComponent: React.FC = () => {
               <div key={`${command}-${payload}`} className="mt-4">
                 <button
                   onClick={() => handleDownload(filename, pdbId)}
-                  className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-cyan-600 border border-transparent rounded-md shadow-sm hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+                  className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
                   <DownloadIcon />
                   Download {filename}
@@ -71,10 +71,10 @@ const ChatbotComponent: React.FC = () => {
             );
           break;
         case 'BLAST_RESULT':
-          parts.push(<pre key={`${command}-${payload}`} className="whitespace-pre-wrap bg-gray-200 dark:bg-gray-800 p-3 rounded-md font-mono text-xs mt-4">{payload.trim()}</pre>);
+          parts.push(<pre key={`${command}-${payload}`} className="whitespace-pre-wrap bg-slate-200 dark:bg-slate-800 p-3 rounded-md font-mono text-xs mt-4">{payload.trim()}</pre>);
           break;
         case 'PUBMED_SUMMARY':
-          parts.push(<div key={`${command}-${payload}`} className="mt-4 p-3 border-l-4 border-cyan-500 bg-gray-200/50 dark:bg-gray-800 rounded-r-md">{payload.trim()}</div>);
+          parts.push(<div key={`${command}-${payload}`} className="mt-4 p-3 border-l-4 border-blue-500 bg-slate-200/50 dark:bg-slate-800 rounded-r-md">{payload.trim()}</div>);
           break;
       }
       lastIndex = match.index + fullMatch.length;
@@ -146,12 +146,12 @@ const ChatbotComponent: React.FC = () => {
   }, [isLoading, parseResponse]);
 
   return (
-    <div className="flex flex-col h-full bg-gray-100 dark:bg-gray-900">
-      <header className="flex items-center p-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700 shadow-md">
-            <RhesusIcon className="w-8 h-8 text-cyan-500 dark:text-cyan-400"/>
+    <div className="flex flex-col h-full bg-slate-100 dark:bg-slate-900">
+      <header className="flex items-center p-4 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700 shadow-md">
+            <RhesusIcon className="w-8 h-8 text-blue-500 dark:text-blue-400"/>
             <div className="ml-3">
-                <h1 className="text-xl font-bold text-gray-800 dark:text-gray-100">Dr. Rhesus</h1>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Bioinformatics Research Assistant</p>
+                <h1 className="text-xl font-bold text-slate-800 dark:text-slate-100">Dr. Rhesus</h1>
+                <p className="text-sm text-slate-500 dark:text-slate-400">Bioinformatics Research Assistant</p>
             </div>
       </header>
       <ChatWindow messages={messages} isLoading={isLoading} />
@@ -175,24 +175,31 @@ const ChatbotPage: React.FC = () => {
         }
     }
 
+    const NavButton: React.FC<{
+        label: string;
+        tabName: 'chatbot' | 'projects';
+        icon: React.ReactNode
+    }> = ({ label, tabName, icon }) => {
+        const isActive = activeTab === tabName;
+        return (
+            <button
+                onClick={() => setActiveTab(tabName)}
+                className={`flex-1 flex flex-col items-center justify-center p-2 transition-colors ${isActive ? 'text-blue-500 dark:text-blue-400' : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'}`}
+            >
+                {icon}
+                <span className="text-xs font-medium">{label}</span>
+            </button>
+        )
+    };
+
     return (
-        <div className="flex flex-col h-full">
-            <div className="flex border-b border-gray-300 dark:border-gray-700">
-                <button
-                    onClick={() => setActiveTab('chatbot')}
-                    className={`px-4 py-3 font-medium transition-colors ${activeTab === 'chatbot' ? 'text-cyan-600 dark:text-cyan-400 border-b-2 border-cyan-500' : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-200'}`}
-                >
-                    Dr. Rhesus Chatbot
-                </button>
-                <button
-                    onClick={() => setActiveTab('projects')}
-                    className={`px-4 py-3 font-medium transition-colors ${activeTab === 'projects' ? 'text-cyan-600 dark:text-cyan-400 border-b-2 border-cyan-500' : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-200'}`}
-                >
-                    Project List
-                </button>
-            </div>
-            <div className="flex-grow">
+        <div className="flex flex-col h-full relative">
+            <div className="flex-grow pb-16">
                 {renderContent()}
+            </div>
+            <div className="fixed bottom-0 left-0 right-0 h-16 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border-t border-slate-300 dark:border-slate-700 flex z-10">
+                <NavButton label="Dr. Rhesus" tabName="chatbot" icon={<RhesusIcon className="w-6 h-6" />} />
+                <NavButton label="Projects" tabName="projects" icon={<ProjectIcon className="w-6 h-6" />} />
             </div>
         </div>
     );
