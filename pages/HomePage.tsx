@@ -1,43 +1,20 @@
-import React, { useState } from 'react';
-import PasswordModal from '../components/PasswordModal';
+import React from 'react';
 import RotatingQuotes from '../components/RotatingQuotes';
 
-interface HomePageProps {
-  onAuthenticate: () => void;
-}
-
-const HomePage: React.FC<HomePageProps> = ({ onAuthenticate }) => {
-  const [isModalOpen, setModalOpen] = useState(false);
-
+const HomePage: React.FC = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-full text-center p-4 md:p-8 text-slate-900 dark:text-white">
+    <div className="flex flex-col items-center justify-center min-h-full text-center p-4 md:p-8">
       <div className="max-w-4xl">
         <h1 className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-300 dark:to-indigo-400 animate-gradient-x">
-          Welcome to The Dream Lab
+          Welcome, Researcher
         </h1>
-
-        <blockquote className="mt-2 text-sm italic text-slate-600 dark:text-slate-400 border-l-4 border-slate-300 dark:border-slate-600 pl-4 py-1 inline-block">
-          we explore the questions we want the answers for.
-        </blockquote>
         
         <RotatingQuotes />
 
         <p className="mt-6 max-w-2xl mx-auto text-slate-700 dark:text-slate-400">
-          Our platform integrates cutting-edge AI with powerful bioinformatics tools. 
-          Press the button below to begin your research journey with Dr. Rhesus.
+          You have successfully accessed The Dream Lab's research platform. 
+          Use the navigation menu to access the Dr. Rhesus assistant and other tools.
         </p>
-        
-        <div className="mt-10">
-            <button 
-                onClick={() => setModalOpen(true)}
-                className="px-8 py-3 bg-blue-600 text-white font-bold rounded-full hover:bg-blue-500 transition-transform transform hover:scale-105 shadow-lg"
-            >
-                Access Research Assistant
-            </button>
-            <p className="text-xs text-slate-500 mt-3">
-                If you want to access this chatbot, please <a href="#contact" className="text-blue-500 hover:underline">contact us</a>.
-            </p>
-        </div>
 
         <div className="mt-10">
             <img 
@@ -47,12 +24,6 @@ const HomePage: React.FC<HomePageProps> = ({ onAuthenticate }) => {
             />
         </div>
       </div>
-      
-      <PasswordModal 
-        isOpen={isModalOpen}
-        onClose={() => setModalOpen(false)}
-        onSuccess={onAuthenticate}
-      />
     </div>
   );
 };
