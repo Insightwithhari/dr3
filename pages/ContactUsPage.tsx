@@ -30,7 +30,7 @@ const ContactUsPage: React.FC = () => {
                     title="Email Us"
                 >
                     <a href="mailto:hariom.ae-219@andc.du.ac.in" className="hover:underline">
-                        contact@dreamlab.science
+                        hariom.ae-219@andc.du.ac.in
                     </a>
                 </ContactInfo>
             </div>
