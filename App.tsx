@@ -26,7 +26,7 @@ const App: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState<Page>(getPageFromHash());
   const [theme, setTheme] = useState<Theme>(() => (localStorage.getItem('theme') as Theme) || 'dark');
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => sessionStorage.getItem('isAuthenticated') === 'true');
   const [isRhesusPopupOpen, setRhesusPopupOpen] = useState(false);
 
   useEffect(() => {
@@ -40,6 +40,7 @@ const App: React.FC = () => {
   }, [theme]);
 
   const handleAuthentication = useCallback(() => {
+    sessionStorage.setItem('isAuthenticated', 'true');
     setIsAuthenticated(true);
     window.location.replace('#chatbot');
     setCurrentPage('chatbot');
@@ -63,6 +64,7 @@ const App: React.FC = () => {
     
     window.addEventListener('hashchange', handleHashChange);
     
+    // Initial check on load
     handleHashChange();
     if (!window.location.hash) {
         window.location.hash = '#home';
@@ -119,7 +121,7 @@ const App: React.FC = () => {
           <ThemeToggle theme={theme} setTheme={setTheme} />
         </header>
         
-        <main className="flex-1 overflow-y-auto bg-white/60 dark:bg-slate-900/50 backdrop-blur-sm">
+        <main className="flex-1 overflow-y-auto bg-white dark:bg-slate-900 transition-colors duration-300">
           {renderPage()}
         </main>
 
