@@ -41,7 +41,6 @@ const App: React.FC = () => {
 
   const handleAuthentication = useCallback(() => {
     setIsAuthenticated(true);
-    // Use replace to prevent the back button from going to the password-protected route
     window.location.replace('#chatbot');
     setCurrentPage('chatbot');
   }, []);
@@ -49,7 +48,12 @@ const App: React.FC = () => {
   useEffect(() => {
     const handleHashChange = () => {
       const newPage = getPageFromHash();
-      if ((newPage === 'chatbot' || newPage === 'supervisor') && !isAuthenticated) {
+      if (newPage === 'home' && isAuthenticated) {
+        window.location.hash = '#chatbot';
+        setCurrentPage('chatbot');
+        return;
+      }
+      if (newPage === 'chatbot' && !isAuthenticated) {
         window.location.hash = '#home';
         setCurrentPage('home');
       } else {
@@ -59,7 +63,6 @@ const App: React.FC = () => {
     
     window.addEventListener('hashchange', handleHashChange);
     
-    // Initial check on load
     handleHashChange();
     if (!window.location.hash) {
         window.location.hash = '#home';
@@ -78,7 +81,7 @@ const App: React.FC = () => {
         case 'chatbot':
           return isAuthenticated ? <ChatbotPage /> : <HomePage onAuthenticate={handleAuthentication} />;
         case 'supervisor':
-          return isAuthenticated ? <SupervisorPage /> : <HomePage onAuthenticate={handleAuthentication} />;
+          return <SupervisorPage />;
         case 'about':
           return <AboutUsPage />;
         case 'contact':
@@ -91,7 +94,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-sans flex flex-col">
+    <div className="relative min-h-screen bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200 font-sans flex flex-col">
       <ProteinBackground theme={theme} isVisible={currentPage === 'home'} />
       <Sidebar 
         isOpen={isSidebarOpen} 
@@ -101,10 +104,10 @@ const App: React.FC = () => {
       />
       
       <div className="relative z-10 flex flex-col flex-grow">
-        <header className="flex items-center justify-between p-4 bg-white/70 dark:bg-slate-900/70 backdrop-blur-sm border-b border-slate-300/50 dark:border-slate-700/50 shadow-lg">
+        <header className="flex items-center justify-between p-4 bg-white/80 dark:bg-slate-900/70 backdrop-blur-sm border-b border-slate-200/80 dark:border-slate-700/50 shadow-md">
           <button 
             onClick={() => setSidebarOpen(true)} 
-            className="p-2 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+            className="p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
             aria-label="Open navigation menu"
           >
             <MenuIcon />
@@ -116,11 +119,11 @@ const App: React.FC = () => {
           <ThemeToggle theme={theme} setTheme={setTheme} />
         </header>
         
-        <main className="flex-1 overflow-y-auto bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
+        <main className="flex-1 overflow-y-auto bg-white/60 dark:bg-slate-900/50 backdrop-blur-sm">
           {renderPage()}
         </main>
 
-        <footer className="p-4 bg-white/70 dark:bg-slate-900/70 backdrop-blur-sm border-t border-slate-300/50 dark:border-slate-700/50 text-center text-xs text-slate-600 dark:text-slate-500">
+        <footer className="p-4 bg-white/80 dark:bg-slate-900/70 backdrop-blur-sm border-t border-slate-200/80 dark:border-slate-700/50 text-center text-xs text-slate-500 dark:text-slate-500">
             <p className="mb-1">Created by Hariom 👨‍💻</p>
             © {new Date().getFullYear()} The Dream Lab. All rights reserved.
         </footer>
@@ -128,7 +131,7 @@ const App: React.FC = () => {
 
       <button
         onClick={() => setRhesusPopupOpen(true)}
-        className="fixed bottom-6 right-6 z-20 w-16 h-16 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-500 transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-blue-500"
+        className="fixed bottom-6 right-6 z-20 w-16 h-16 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-500 transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-900 focus:ring-blue-500"
         aria-label="About Dr. Rhesus"
         style={{
           backgroundImage: `url('https://i.pravatar.cc/150?u=dr-rhesus-icon')`,
