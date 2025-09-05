@@ -193,8 +193,8 @@ const ChatbotPage: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col h-full relative">
-            <div className="flex-grow pb-16">
+        <div className="flex flex-col h-full relative bg-white dark:bg-slate-900 transition-colors duration-300">
+            <div className="flex-grow pb-16 overflow-y-auto">
                 {renderContent()}
             </div>
             <div className="fixed bottom-0 left-0 right-0 h-16 bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm border-t border-slate-200 dark:border-slate-700 flex z-10">
