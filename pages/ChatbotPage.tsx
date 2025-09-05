@@ -146,7 +146,7 @@ const ChatbotComponent: React.FC = () => {
   }, [isLoading, parseResponse]);
 
   return (
-    <div className="flex flex-col h-full bg-white dark:bg-slate-900">
+    <div className="flex flex-col h-full">
       <header className="flex items-center p-4 bg-slate-50 dark:bg-slate-800/80 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700 shadow-sm">
             <RhesusIcon className="w-8 h-8 text-blue-500 dark:text-blue-400"/>
             <div className="ml-3">
