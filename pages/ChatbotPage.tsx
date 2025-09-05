@@ -8,7 +8,7 @@ import { RhesusIcon, DownloadIcon, ProjectIcon } from '../components/icons';
 import PDBViewer from '../components/PDBViewer';
 import ProjectListPage from '../components/ProjectListPage';
 
-const BlinkingCursor: React.FC = () => <span className="inline-block w-2 h-5 bg-blue-400 animate-pulse ml-1" />;
+const BlinkingCursor: React.FC = () => <span className="inline-block w-2 h-5 bg-blue-500 animate-pulse ml-1" />;
 
 const ChatbotComponent: React.FC = () => {
     const [messages, setMessages] = useState<Message[]>([
@@ -71,10 +71,10 @@ const ChatbotComponent: React.FC = () => {
             );
           break;
         case 'BLAST_RESULT':
-          parts.push(<pre key={`${command}-${payload}`} className="whitespace-pre-wrap bg-slate-200 dark:bg-slate-800 p-3 rounded-md font-mono text-xs mt-4">{payload.trim()}</pre>);
+          parts.push(<pre key={`${command}-${payload}`} className="whitespace-pre-wrap bg-slate-100 dark:bg-slate-800 p-3 rounded-md font-mono text-xs mt-4">{payload.trim()}</pre>);
           break;
         case 'PUBMED_SUMMARY':
-          parts.push(<div key={`${command}-${payload}`} className="mt-4 p-3 border-l-4 border-blue-500 bg-slate-200/50 dark:bg-slate-800 rounded-r-md">{payload.trim()}</div>);
+          parts.push(<div key={`${command}-${payload}`} className="mt-4 p-3 border-l-4 border-blue-500 bg-slate-50 dark:bg-slate-800 rounded-r-md">{payload.trim()}</div>);
           break;
       }
       lastIndex = match.index + fullMatch.length;
@@ -146,11 +146,11 @@ const ChatbotComponent: React.FC = () => {
   }, [isLoading, parseResponse]);
 
   return (
-    <div className="flex flex-col h-full bg-slate-100 dark:bg-slate-900">
-      <header className="flex items-center p-4 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700 shadow-md">
+    <div className="flex flex-col h-full bg-white dark:bg-slate-900">
+      <header className="flex items-center p-4 bg-slate-50 dark:bg-slate-800/80 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700 shadow-sm">
             <RhesusIcon className="w-8 h-8 text-blue-500 dark:text-blue-400"/>
             <div className="ml-3">
-                <h1 className="text-xl font-bold text-slate-800 dark:text-slate-100">Dr. Rhesus</h1>
+                <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">Dr. Rhesus</h1>
                 <p className="text-sm text-slate-500 dark:text-slate-400">Bioinformatics Research Assistant</p>
             </div>
       </header>
@@ -184,7 +184,7 @@ const ChatbotPage: React.FC = () => {
         return (
             <button
                 onClick={() => setActiveTab(tabName)}
-                className={`flex-1 flex flex-col items-center justify-center p-2 transition-colors ${isActive ? 'text-blue-500 dark:text-blue-400' : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'}`}
+                className={`flex-1 flex flex-col items-center justify-center p-2 transition-colors ${isActive ? 'text-blue-600 dark:text-blue-400' : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-200'}`}
             >
                 {icon}
                 <span className="text-xs font-medium">{label}</span>
@@ -197,7 +197,7 @@ const ChatbotPage: React.FC = () => {
             <div className="flex-grow pb-16">
                 {renderContent()}
             </div>
-            <div className="fixed bottom-0 left-0 right-0 h-16 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border-t border-slate-300 dark:border-slate-700 flex z-10">
+            <div className="fixed bottom-0 left-0 right-0 h-16 bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm border-t border-slate-200 dark:border-slate-700 flex z-10">
                 <NavButton label="Dr. Rhesus" tabName="chatbot" icon={<RhesusIcon className="w-6 h-6" />} />
                 <NavButton label="Projects" tabName="projects" icon={<ProjectIcon className="w-6 h-6" />} />
             </div>
