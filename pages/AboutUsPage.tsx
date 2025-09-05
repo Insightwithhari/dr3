@@ -27,14 +27,14 @@ const AboutUsPage: React.FC = () => {
       <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl font-bold text-center mb-4 text-blue-600 dark:text-blue-300">About The Dream Lab</h1>
         <p className="text-lg text-center text-slate-600 dark:text-slate-300 mb-12">
-          We are a dedicated team of researchers and developers passionate about leveraging computational tools to push the boundaries of bioinformatics and protein engineering.
+          We are a dedicated team of researchers and developers passionate about leveraging computational tools to push the boundaries of bioinformatics and protein engineering. We are thankful to our teachers as a supervisors for guiding us.
         </p>
         
         <div>
           <h2 className="text-3xl font-semibold text-center mb-8 border-b-2 border-blue-500 pb-2">Meet the Developers</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <ProfileCard name="Hariom" title="Lead Developer & Bioinformatician" imageUrl="https://i.pravatar.cc/150?img=5" />
-            <ProfileCard name="Alex Doe" title="Frontend Specialist & UI/UX Designer" imageUrl="https://i.pravatar.cc/150?img=6" />
+            <ProfileCard name="Hariom Chaudhary" title="Biomedical Science 4th Year Student" imageUrl="https://envs.sh/iZA.jpg" />
+            <ProfileCard name="Pradeep" title="Fronted Learner" imageUrl="https://envs.sh/iZT.jpg" />
           </div>
         </div>
       </div>
