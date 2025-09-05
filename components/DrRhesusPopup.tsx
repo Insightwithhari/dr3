@@ -1,55 +1,71 @@
 import React from 'react';
-import { CloseIcon } from './icons';
+import type { Page } from '../App';
+import LiveClock from './LiveClock';
 
-interface DrRhesusPopupProps {
+interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
+  currentPage: Page;
+  isAuthenticated: boolean;
 }
 
-const DrRhesusPopup: React.FC<DrRhesusPopupProps> = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, currentPage, isAuthenticated }) => {
+  const NavLink: React.FC<{ page: Page; label: string; disabled?: boolean; glow?: boolean }> = ({ page, label, disabled = false, glow = false }) => {
+    const isActive = currentPage === page;
+    const activeClasses = 'bg-blue-500/20 text-white';
+    const inactiveClasses = 'text-slate-300 hover:bg-slate-700 hover:text-white';
+    const disabledClasses = 'text-slate-500 cursor-not-allowed';
+    const glowClasses = glow ? 'hover:shadow-[0_0_15px_theme(colors.blue.500/50%)] dark:hover:shadow-[0_0_15px_theme(colors.blue.400/40%)]' : '';
+
+
+    return (
+      <li>
+        <a
+          href={!disabled ? `#${page}` : undefined}
+          onClick={(e) => {
+            if (disabled) e.preventDefault();
+            else onClose();
+          }}
+          className={`w-full text-left px-4 py-3 block rounded-r-md transition-all duration-300 ${glowClasses} ${
+            disabled ? disabledClasses : (isActive ? activeClasses : inactiveClasses)
+          }`}
+          aria-disabled={disabled}
+        >
+          {label}
+        </a>
+      </li>
+    );
+  };
 
   return (
-    <div 
-      className="fixed inset-0 bg-black/60 z-40 flex items-center justify-center p-4"
-      onClick={onClose}
-    >
+    <>
       <div 
-        className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl w-full max-w-sm p-8 pt-16 text-center relative transform transition-transform duration-300 scale-95 animate-fadeIn"
-        onClick={(e) => e.stopPropagation()}
+        className={`fixed inset-0 bg-black/60 z-20 transition-opacity duration-300 ease-in-out ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        onClick={onClose}
+        aria-hidden="true"
+      />
+      <div
+        className={`fixed top-0 left-0 h-full w-64 bg-slate-800 shadow-xl z-30 transform transition-transform duration-300 ease-in-out flex flex-col ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
-        <button onClick={onClose} className="absolute top-4 right-4 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200">
-            <CloseIcon />
-        </button>
-        <img 
-            src="https://envs.sh/icl.jpg" 
-            alt="Dr. Rhesus" 
-            className="w-28 h-28 rounded-full border-4 border-blue-500 absolute -top-14 left-1/2 -translate-x-1/2 object-cover"
-        />
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Dr. Rhesus</h2>
-        <p className="text-blue-600 dark:text-blue-400 font-medium">Expert Bioinformatics Research Assistant</p>
-        <p className="mt-4 text-sm text-slate-600 dark:text-slate-300">
-            I specialize in protein design and analysis. I can help you find PDB structures, visualize molecules, perform in-silico mutations, and conduct literature searches to accelerate your research.
-        </p>
-        <div className="mt-6 flex flex-col items-center space-y-3">
-            <a 
-                href="#about"
-                onClick={onClose}
-                className="inline-block px-5 py-2 text-sm font-medium text-white bg-blue-600 rounded-full hover:bg-blue-500 transition-colors"
-            >
-                Learn More About The Lab
-            </a>
-            <a
-                href="#contact"
-                onClick={onClose}
-                className="text-sm text-blue-500 dark:text-blue-400 hover:underline"
-            >
-                Contact Us
-            </a>
+        <div className="p-4 border-b border-slate-700">
+          <h2 className="text-xl font-bold text-white">Navigation</h2>
+        </div>
+        <nav className="p-2 flex-grow">
+          <ul className="space-y-1">
+            <NavLink page="home" label="Home" />
+            <NavLink page="chatbot" label="Dr. Rhesus Chatbot" disabled={!isAuthenticated} />
+            <NavLink page="supervisor" label="Supervisor Page" />
+            <NavLink page="about" label="About Us" />
+            <NavLink page="contact" label="Contact Us" />
+            <NavLink page="quotes" label="Quotes" glow={true} />
+          </ul>
+        </nav>
+        <div className="p-4 border-t border-slate-700">
+            <LiveClock />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
-export default DrRhesusPopup;
+export default Sidebar;
