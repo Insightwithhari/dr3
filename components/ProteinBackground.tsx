@@ -18,7 +18,7 @@ const ProteinBackground: React.FC<ProteinBackgroundProps> = ({ theme, isVisible 
 
     if (viewerRef.current && isVisible) {
       const element = viewerRef.current;
-      const backgroundColor = theme === 'dark' ? '#0F172A' : '#F1F5F9'; // slate-900 and slate-100
+      const backgroundColor = theme === 'dark' ? '#0F172A' : '#FFFFFF'; // slate-900 and white
       const config = { backgroundColor };
       viewer = $3Dmol.createViewer(element, config);
 
