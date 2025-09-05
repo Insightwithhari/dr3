@@ -6,30 +6,24 @@ interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
   currentPage: Page;
-  isAuthenticated: boolean;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, currentPage, isAuthenticated }) => {
-  const NavLink: React.FC<{ page: Page; label: string; disabled?: boolean; glow?: boolean }> = ({ page, label, disabled = false, glow = false }) => {
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, currentPage }) => {
+  const NavLink: React.FC<{ page: Page; label: string; glowColor: string }> = ({ page, label, glowColor }) => {
     const isActive = currentPage === page;
     const activeClasses = 'bg-blue-500/20 text-white';
     const inactiveClasses = 'text-slate-300 hover:bg-slate-700 hover:text-white';
-    const disabledClasses = 'text-slate-500 cursor-not-allowed';
-    const glowClasses = glow ? 'hover:shadow-[0_0_15px_theme(colors.blue.500/50%)] dark:hover:shadow-[0_0_15px_theme(colors.blue.400/40%)]' : '';
+    const glowClasses = `hover:shadow-[0_0_15px_${glowColor}]`;
 
 
     return (
       <li>
         <a
-          href={!disabled ? `#${page}` : undefined}
-          onClick={(e) => {
-            if (disabled) e.preventDefault();
-            else onClose();
-          }}
+          href={`#${page}`}
+          onClick={onClose}
           className={`w-full text-left px-4 py-3 block rounded-r-md transition-all duration-300 ${glowClasses} ${
-            disabled ? disabledClasses : (isActive ? activeClasses : inactiveClasses)
+            (isActive ? activeClasses : inactiveClasses)
           }`}
-          aria-disabled={disabled}
         >
           {label}
         </a>
@@ -52,12 +46,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, currentPage, isAuthe
         </div>
         <nav className="p-2 flex-grow">
           <ul className="space-y-1">
-            <NavLink page="home" label="Home" />
-            <NavLink page="chatbot" label="Dr. Rhesus Chatbot" disabled={!isAuthenticated} />
-            <NavLink page="supervisor" label="Supervisor Page" />
-            <NavLink page="about" label="About Us" />
-            <NavLink page="contact" label="Contact Us" />
-            <NavLink page="quotes" label="Quotes" glow={true} />
+            <NavLink page="home" label="Home" glowColor="theme(colors.blue.500/50%)" />
+            <NavLink page="chatbot" label="Dr. Rhesus Chatbot" glowColor="theme(colors.indigo.500/50%)" />
+            <NavLink page="supervisor" label="Supervisor Page" glowColor="theme(colors.teal.500/50%)" />
+            <NavLink page="about" label="About Us" glowColor="theme(colors.purple.500/50%)" />
+            <NavLink page="contact" label="Contact Us" glowColor="theme(colors.red.500/50%)" />
+            <NavLink page="quotes" label="Quotes" glowColor="theme(colors.amber.500/50%)" />
           </ul>
         </nav>
         <div className="p-4 border-t border-slate-700">
