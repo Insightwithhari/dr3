@@ -91,7 +91,6 @@ LasihramRajendrakumar Singh. (2021) pH induced conformational alteration in huma
 peroxiredoxin 6 might be responsible for its resistance against lysosomal pH or high 
 temperature. Scientific reports (NatureResearch) 11, 9657.
                     </li>
-                    </p>
                 </ul>
             </InfoCard>
         </div>
