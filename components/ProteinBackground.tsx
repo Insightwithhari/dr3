@@ -10,7 +10,7 @@ interface ProteinBackgroundProps {
 
 const ProteinBackground: React.FC<ProteinBackgroundProps> = ({ theme, isVisible }) => {
   const viewerRef = useRef<HTMLDivElement>(null);
-  const pdbId = '1XQ8'; // Alpha-synuclein
+  const pdbId = '1PRX'; // Alpha-synuclein
 
   useEffect(() => {
     let viewer: any = null;
