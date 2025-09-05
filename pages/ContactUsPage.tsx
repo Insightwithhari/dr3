@@ -29,15 +29,9 @@ const ContactUsPage: React.FC = () => {
                     icon={<EnvelopeIcon className="w-6 h-6 text-blue-500 dark:text-blue-300" />}
                     title="Email Us"
                 >
-                    <a href="mailto:contact@dreamlab.science" className="hover:underline">
+                    <a href="mailto:hariom.ae-219@andc.du.ac.in" className="hover:underline">
                         contact@dreamlab.science
                     </a>
-                </ContactInfo>
-                <ContactInfo
-                    icon={<PhoneIcon className="w-6 h-6 text-blue-500 dark:text-blue-300" />}
-                    title="Call Us"
-                >
-                    <p>+1 (555) 123-4567</p>
                 </ContactInfo>
             </div>
             
