@@ -19,7 +19,7 @@ const RotatingQuotes: React.FC = () => {
     }, []);
 
     return (
-        <div className="mt-4 text-lg text-gray-600 dark:text-gray-300 transition-opacity duration-500">
+        <div className="mt-4 text-lg text-slate-600 dark:text-slate-300 transition-opacity duration-500">
             <p key={index} className="animate-fadeIn">"{quotes[index].text}" - <span className="font-semibold">{quotes[index].author}</span></p>
         </div>
     );
