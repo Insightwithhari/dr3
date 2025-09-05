@@ -22,7 +22,7 @@ const LiveClock: React.FC = () => {
     };
 
     return (
-        <div className="text-sm text-gray-600 dark:text-gray-400 font-mono">
+        <div className="text-sm text-slate-400 dark:text-slate-400 font-mono text-center">
             {formatDate(time)}
         </div>
     );
