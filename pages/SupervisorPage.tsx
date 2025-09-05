@@ -7,8 +7,8 @@ const InfoCard: React.FC<{ title: string; children: React.ReactNode; className?:
     </div>
 );
 
-const SupervisorProfileCard: React.FC<{name: string, title: string, imageUrl: string, bio: string}> = ({ name, title, imageUrl, bio }) => (
-    <div className="flex flex-col items-center md:flex-row md:items-start text-center md:text-left bg-white dark:bg-slate-800 rounded-lg p-8 shadow-lg hover:shadow-2xl hover:shadow-blue-500/20 dark:hover:shadow-blue-400/10 border border-slate-200 dark:border-slate-700 transition-shadow duration-300">
+const SupervisorProfileCard: React.FC<{name: string, title: string, imageUrl: string, bio: string, glowClasses: string}> = ({ name, title, imageUrl, bio, glowClasses }) => (
+    <div className={`flex flex-col items-center md:flex-row md:items-start text-center md:text-left bg-white dark:bg-slate-800 rounded-lg p-8 shadow-lg hover:shadow-2xl border border-slate-200 dark:border-slate-700 transition-shadow duration-300 ${glowClasses}`}>
         <img 
             src={imageUrl} 
             alt={name}
@@ -37,12 +37,14 @@ const SupervisorPage: React.FC = () => {
               title="Principal Investigator"
               imageUrl="https://i.pravatar.cc/150?img=12"
               bio="Dr. Reed is a leading expert in computational biology with over 20 years of experience in protein engineering and bioinformatics. Her work focuses on leveraging artificial intelligence to accelerate drug discovery and develop novel therapeutic proteins."
+              glowClasses="hover:shadow-blue-500/20 dark:hover:shadow-blue-400/10"
           />
           <SupervisorProfileCard 
               name="Dr. Kenji Tanaka"
               title="Senior Research Scientist"
               imageUrl="https://i.pravatar.cc/150?img=58"
               bio="Dr. Tanaka specializes in structural bioinformatics and molecular dynamics simulations. His research is pivotal in understanding protein-ligand interactions and designing next-generation enzymes for industrial applications."
+              glowClasses="hover:shadow-indigo-500/20 dark:hover:shadow-indigo-400/10"
           />
         </div>
 
