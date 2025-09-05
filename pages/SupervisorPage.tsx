@@ -41,7 +41,7 @@ const SupervisorPage: React.FC = () => {
           />
           <SupervisorProfileCard 
               name="Dr. Archana Pandey"
-              title="Assistant Professor"
+              title="Associate Professor"
               imageUrl="https://envs.sh/icy.jpg"
               bio="She is an Associate Professor at Acharya Narendra Dev College, University of Delhi. Her areas of expertise include molecular biology, animal models, and bioluminescence. She is currently supervising several research projects focused on the development of biosensing tools and advancing cancer research."
               glowClasses="hover:shadow-indigo-500/20 dark:hover:shadow-indigo-400/10"
@@ -58,6 +58,7 @@ Exploring potential therapeutic targets and innovative approaches to combat anti
 Mapping mutational patterns in MDM2 using computational methods to uncover molecular drivers of cancer.
 
 </li>
+                    <li>Synthesis and characterization of ATPase inhibitor-based silver nanoparticles.</li>
                     <li>Engineering Bacterial Cellulose into a Sustainable Leather Alternative
 Developing eco-friendly leather substitutes from bacterial cellulose for sustainable material applications.
 
@@ -71,23 +72,25 @@ Assessing how probiotics influence cancer cell behavior and progression in vit
             </InfoCard>
             <InfoCard title="Recent Publications">
                 <ul className="list-disc list-inside">
-                    <p>Acute Osmotic and pH Shock to Bioluminescent Bacteria Is 
+                    <li>Acute Osmotic and pH Shock to Bioluminescent Bacteria Is 
 Reversible in Terms of Luminescence Response
  Rajeev Ranjan,  Sakshi Goswami,  Navendu Sharma, Lalit Mohan Vashishth,  Meenu Singh,  Yeshvandra Verma,
 Suresh Vir Singh Rana,  Valentina Kratasyuk,  Satyandra Kumar, Archna Pandey
-
-A bioluminescence-based bioassay for hazard assessment of food-grade 
+                    </li>
+                    <li>A bioluminescence-based bioassay for hazard assessment of food-grade 
 silver foil (E174) and its validation by atomic absorption spectroscopy
  Rajeev Ranjan, Meenu Singh, Sakshi Goswami, Yeshvandra Verma, Archna Pandey
-Niharika Sachdev, Sangeeta Goomer, Laishram Rajender Kumar Singh, and Rimpy 
+                    </li>
+                    <li>Niharika Sachdev, Sangeeta Goomer, Laishram Rajender Kumar Singh, and Rimpy 
 Kaur Chowhan (2023). Preparation and nutritional characterisation of protein 
 concentrate prepared from foxtail millet (Setaria italica). Food Science and Technology 
-International 0(0). doi:10.1177/10820132231159819 
-
-Rimpy Kaur Chowhan, Sunaina Hotumalani, Hamidur Rahaman, and 
+International 0(0). doi:10.1177/10820132231159819
+                    </li>
+                    <li>Rimpy Kaur Chowhan, Sunaina Hotumalani, Hamidur Rahaman, and 
 LasihramRajendrakumar Singh. (2021) pH induced conformational alteration in human 
 peroxiredoxin 6 might be responsible for its resistance against lysosomal pH or high 
 temperature. Scientific reports (NatureResearch) 11, 9657.
+                    </li>
                     </p>
                 </ul>
             </InfoCard>
