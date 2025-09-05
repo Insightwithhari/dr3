@@ -33,8 +33,8 @@ const AboutUsPage: React.FC = () => {
         <div>
           <h2 className="text-3xl font-semibold text-center mb-8 border-b-2 border-blue-500 pb-2">Meet the Developers</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <ProfileCard name="Hariom Chaudhary" title="Biomedical Science 4th Year Student" imageUrl="https://envs.sh/iZA.jpg" />
-            <ProfileCard name="Pradeep" title="Fronted Learner" imageUrl="https://envs.sh/iZT.jpg" />
+            <ProfileCard name="Hariom Chaudhary" title="Biomedical Science 4th Year Student, ANDC (DU)" imageUrl="https://envs.sh/iZA.jpg" />
+            <ProfileCard name="Pradeep" title="Fronted Learner, ANDC (DU)" imageUrl="https://envs.sh/iZT.jpg" />
           </div>
         </div>
       </div>
