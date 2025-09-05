@@ -68,6 +68,19 @@ export const CloseIcon: React.FC<{ className?: string }> = ({ className = "w-6 h
     </svg>
 );
 
+export const CheckIcon: React.FC<{ className?: string }> = ({ className = "w-6 h-6" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+  </svg>
+);
+
+export const ProjectIcon: React.FC<{ className?: string }> = ({ className = "w-6 h-6" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h6M9 12h6m-6 5.25h6M5.25 6h.008v.008H5.25V6Zm.75 4.5h.008v.008h-.008v-.008Zm-.75 5.25h.008v.008H5.25v-.008Zm13.5-9.75h.008v.008h-.008V6Zm-.75 4.5h.008v.008h-.008V10.5Zm.75 5.25h.008v.008h-.008v-.008Z" />
+  </svg>
+);
+
+
 // Social Media Icons
 export const TelegramIcon: React.FC<{ className?: string }> = ({ className = "w-6 h-6" }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
