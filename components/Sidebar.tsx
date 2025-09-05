@@ -38,12 +38,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, currentPage, isAuthe
   return (
     <>
       <div 
-        className={`fixed inset-0 bg-black/60 z-20 transition-opacity ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        className={`fixed inset-0 bg-black/60 z-20 transition-opacity duration-300 ease-in-out ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
         onClick={onClose}
         aria-hidden="true"
       />
       <div
-        className={`fixed top-0 left-0 h-full w-64 bg-slate-800 shadow-xl z-30 transform transition-transform flex flex-col ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        className={`fixed top-0 left-0 h-full w-64 bg-slate-800 shadow-xl z-30 transform transition-transform duration-300 ease-in-out flex flex-col ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
         <div className="p-4 border-b border-slate-700">
           <h2 className="text-xl font-bold text-white">Navigation</h2>
@@ -52,7 +52,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, currentPage, isAuthe
           <ul className="space-y-1">
             <NavLink page="home" label="Home" />
             <NavLink page="chatbot" label="Dr. Rhesus Chatbot" disabled={!isAuthenticated} />
-            <NavLink page="supervisor" label="Supervisor Page" disabled={!isAuthenticated} />
+            <NavLink page="supervisor" label="Supervisor Page" />
             <NavLink page="about" label="About Us" />
             <NavLink page="contact" label="Contact Us" />
           </ul>
