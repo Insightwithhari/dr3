@@ -22,7 +22,7 @@ const DrRhesusPopup: React.FC<DrRhesusPopupProps> = ({ isOpen, onClose }) => {
             <CloseIcon />
         </button>
         <img 
-            src="https://i.pravatar.cc/150?u=dr-rhesus" 
+            src="https://envs.sh/icl.jpg" 
             alt="Dr. Rhesus" 
             className="w-28 h-28 rounded-full border-4 border-blue-500 absolute -top-14 left-1/2 -translate-x-1/2"
         />
