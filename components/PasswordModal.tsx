@@ -35,24 +35,24 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpen, onClose, onSucces
       onClick={onClose}
     >
       <div
-        className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-sm p-6 text-center transform transition-transform duration-300 scale-95 animate-fadeIn"
+        className="bg-white dark:bg-slate-800 rounded-lg shadow-xl w-full max-w-sm p-6 text-center transform transition-transform duration-300 scale-95 animate-fadeIn"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Access Required</h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-4">Please enter the password to proceed.</p>
+        <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Access Required</h2>
+        <p className="text-slate-600 dark:text-slate-400 mb-4">Please enter the password to proceed.</p>
         <form onSubmit={handleSubmit}>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full bg-gray-100 dark:bg-gray-700 text-center p-3 rounded-md border border-gray-300 dark:border-gray-600 focus:ring-cyan-500 focus:outline-none"
+            className="w-full bg-slate-100 dark:bg-slate-700 text-center p-3 rounded-md border border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:outline-none"
             placeholder="Password"
             autoFocus
           />
           {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
           <button
             type="submit"
-            className="w-full mt-4 py-2 bg-cyan-600 text-white font-semibold rounded-md hover:bg-cyan-500 transition-colors"
+            className="w-full mt-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-500 transition-colors"
           >
             Enter
           </button>
