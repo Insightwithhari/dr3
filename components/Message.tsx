@@ -33,7 +33,7 @@ const MessageComponent: React.FC<MessageProps> = ({ message }) => {
   const details = authorDetails[message.author];
 
   return (
-    <div className={`p-4 md:p-6 flex flex-col ${details.align}`}>
+    <div className={`p-4 md:p-6 flex flex-col ${details.align} animate-messageFadeIn`}>
       <div className="flex items-start space-x-4 max-w-full">
         {details.icon && (
             <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${details.iconBg}`}>
