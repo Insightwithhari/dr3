@@ -15,6 +15,10 @@ const HomePage: React.FC<HomePageProps> = ({ onAuthenticate }) => {
         <h1 className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-300 dark:to-indigo-400 animate-gradient-x">
           Welcome to The Dream Lab
         </h1>
+
+        <blockquote className="mt-2 text-sm italic text-slate-600 dark:text-slate-400 border-l-4 border-slate-300 dark:border-slate-600 pl-4 py-1 inline-block">
+          we explore the questions we want the answers for.
+        </blockquote>
         
         <RotatingQuotes />
 
