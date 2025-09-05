@@ -5,9 +5,10 @@ declare const $3Dmol: any;
 
 interface ProteinBackgroundProps {
   theme: Theme;
+  isVisible: boolean;
 }
 
-const ProteinBackground: React.FC<ProteinBackgroundProps> = ({ theme }) => {
+const ProteinBackground: React.FC<ProteinBackgroundProps> = ({ theme, isVisible }) => {
   const viewerRef = useRef<HTMLDivElement>(null);
   const pdbId = '1XQ8'; // Alpha-synuclein
 
@@ -15,9 +16,9 @@ const ProteinBackground: React.FC<ProteinBackgroundProps> = ({ theme }) => {
     let viewer: any = null;
     let rotationInterval: number | undefined;
 
-    if (viewerRef.current) {
+    if (viewerRef.current && isVisible) {
       const element = viewerRef.current;
-      const backgroundColor = theme === 'dark' ? '#0D1117' : '#FFFFFF';
+      const backgroundColor = theme === 'dark' ? '#0F172A' : '#F1F5F9'; // slate-900 and slate-100
       const config = { backgroundColor };
       viewer = $3Dmol.createViewer(element, config);
 
@@ -49,12 +50,16 @@ const ProteinBackground: React.FC<ProteinBackgroundProps> = ({ theme }) => {
         viewer.clear();
       }
     };
-  }, [theme]);
+  }, [theme, isVisible]);
+
+  if (!isVisible) {
+    return null; // Don't render anything if not visible
+  }
 
   return (
     <div 
       ref={viewerRef} 
-      className="absolute inset-0 z-0 opacity-20 dark:opacity-40"
+      className="absolute inset-0 z-0 opacity-10 dark:opacity-20"
       style={{ width: '100%', height: '100%' }} 
     />
   );
