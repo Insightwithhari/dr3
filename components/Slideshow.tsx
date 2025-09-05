@@ -26,7 +26,7 @@ const Slideshow: React.FC = () => {
     }, [currentIndex]);
 
     return (
-        <div className="mt-12 mx-auto max-w-2xl relative w-full h-64 rounded-lg overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700">
+        <div className="mt-12 mx-auto max-w-2xl relative w-full h-64 rounded-lg overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-700">
             {slides.map((slide, index) => (
                 <div
                     key={index}
