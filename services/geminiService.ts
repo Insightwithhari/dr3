@@ -33,8 +33,8 @@ export async function sendMessage(chat: Chat, message: string): Promise<Generate
                 parts: [{ text: errorText }],
                 role: 'model'
             },
-            // Fix: 'ERROR' is not a valid FinishReason. Changed to 'OTHER' to align with the expected type.
-            finishReason: 'OTHER',
+            // Fix: 'OTHER' is not a valid FinishReason. Changed to 'STOP' to align with the expected type.
+            finishReason: 'STOP',
             index: 0,
             safetyRatings: []
         }]
