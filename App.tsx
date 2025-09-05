@@ -6,16 +6,17 @@ import ChatbotPage from './pages/ChatbotPage';
 import SupervisorPage from './pages/SupervisorPage';
 import AboutUsPage from './pages/AboutUsPage';
 import ContactUsPage from './pages/ContactUsPage';
+import QuotesPage from './pages/QuotesPage'; // Import the new QuotesPage
 import { MenuIcon } from './components/icons';
 import ThemeToggle from './components/ThemeToggle';
 import DrRhesusPopup from './components/DrRhesusPopup';
 
-export type Page = 'home' | 'chatbot' | 'supervisor' | 'about' | 'contact';
+export type Page = 'home' | 'chatbot' | 'supervisor' | 'about' | 'contact' | 'quotes';
 export type Theme = 'light' | 'dark';
 
 const getPageFromHash = (): Page => {
     const hash = window.location.hash.substring(1);
-    const validPages: Page[] = ['home', 'chatbot', 'supervisor', 'about', 'contact'];
+    const validPages: Page[] = ['home', 'chatbot', 'supervisor', 'about', 'contact', 'quotes'];
     if (validPages.includes(hash as Page)) {
         return hash as Page;
     }
@@ -88,6 +89,8 @@ const App: React.FC = () => {
           return <AboutUsPage />;
         case 'contact':
           return <ContactUsPage />;
+        case 'quotes':
+          return <QuotesPage />;
         default:
           return <HomePage onAuthenticate={handleAuthentication} />;
       }
@@ -116,12 +119,11 @@ const App: React.FC = () => {
           </button>
           <div className="text-center absolute left-1/2 -translate-x-1/2">
             <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400 tracking-wider">The Dream Lab</h1>
-            <p className="text-sm text-slate-600 dark:text-slate-400">- we explore the questions we want the answers for.</p>
           </div>
           <ThemeToggle theme={theme} setTheme={setTheme} />
         </header>
         
-        <main className="flex-1 overflow-y-auto bg-white dark:bg-slate-900 transition-colors duration-300">
+        <main className="flex-1 overflow-y-auto">
           {renderPage()}
         </main>
 
@@ -136,7 +138,7 @@ const App: React.FC = () => {
         className="fixed bottom-6 right-6 z-20 w-16 h-16 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-500 transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-900 focus:ring-blue-500"
         aria-label="About Dr. Rhesus"
         style={{
-          backgroundImage: `url('https://i.pravatar.cc/150?u=dr-rhesus-icon')`,
+          backgroundImage: `url('https://envs.sh/icl.jpg')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           border: '2px solid white'
