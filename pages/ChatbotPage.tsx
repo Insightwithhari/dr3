@@ -1,8 +1,8 @@
-
 import React, { useState, useRef, useCallback } from 'react';
 import type { Chat } from '@google/genai';
+import type { GroundingMetadata } from '@google/genai';
 import { Message, MessageAuthor } from '../types';
-import { createChatSession, sendMessageStream } from '../services/geminiService';
+import { createChatSession, sendMessage } from '../services/geminiService';
 import ChatWindow from '../components/ChatWindow';
 import ChatInput from '../components/ChatInput';
 import { RhesusIcon, DownloadIcon, ProjectIcon } from '../components/icons';
@@ -10,8 +10,7 @@ import PDBViewer from '../components/PDBViewer';
 import ProjectListPage from '../components/ProjectListPage';
 import PlasmidResultsViewer from '../components/PlasmidResultsViewer';
 import type { PlasmidResult } from '../components/PlasmidResultsViewer';
-
-const BlinkingCursor: React.FC = () => <span className="inline-block w-2 h-5 bg-blue-500 animate-pulse ml-1" />;
+import GroundingSources from '../components/GroundingSources';
 
 const ChatbotComponent: React.FC = () => {
     const [messages, setMessages] = useState<Message[]>([
@@ -41,7 +40,7 @@ const ChatbotComponent: React.FC = () => {
       .catch(error => console.error('Error downloading PDB file:', error));
   }, []);
 
-  const parseResponse = useCallback((responseText: string): React.ReactNode => {
+  const parseResponse = useCallback((responseText: string, groundingMetadata?: GroundingMetadata): React.ReactNode => {
     const parts: (string | React.ReactElement)[] = [];
     let lastIndex = 0;
     const regex = /\[(PDB_VIEW|MUTATION_DOWNLOAD|BLAST_RESULT|PUBMED_SUMMARY|PLASMID_SEARCH_RESULT):([\s\S]+?)\]/g;
@@ -83,20 +82,17 @@ const ChatbotComponent: React.FC = () => {
           try {
             let jsonPayload = payload.trim();
 
-            // Clean up potential markdown fences
             const markdownRegex = /^`{3}(json)?\n?([\s\S]+)\n?`{3}$/;
             const markdownMatch = jsonPayload.match(markdownRegex);
             if (markdownMatch && markdownMatch[2]) {
               jsonPayload = markdownMatch[2].trim();
             }
 
-            // Handle empty payload for no results
             if (!jsonPayload) {
                 parts.push(<PlasmidResultsViewer key={command} results={[]} />);
                 break;
             }
             
-            // Remove trailing comma if it exists
             if (jsonPayload.endsWith(',')) {
                 jsonPayload = jsonPayload.slice(0, -1);
             }
@@ -121,6 +117,11 @@ const ChatbotComponent: React.FC = () => {
       parts.push(responseText.substring(lastIndex));
     }
     
+    // Append grounding sources if they exist
+    if (groundingMetadata?.groundingChunks && groundingMetadata.groundingChunks.length > 0) {
+      parts.push(<GroundingSources key="grounding-sources" chunks={groundingMetadata.groundingChunks} />);
+    }
+
     return <>{parts.map((part, i) => <React.Fragment key={i}>{part}</React.Fragment>)}</>;
   }, [handleDownload]);
 
@@ -139,44 +140,31 @@ const ChatbotComponent: React.FC = () => {
       content: messageText
     };
 
+    // Add user message and a placeholder for Dr. Rhesus's response
     setMessages(prev => [...prev, userMessage]);
 
-    const rhesusMessageId = (Date.now() + 1).toString();
-    const initialRhesusMessage: Message = {
-        id: rhesusMessageId,
-        author: MessageAuthor.RHESUS,
-        content: <BlinkingCursor />
-    };
-    setMessages(prev => [...prev, initialRhesusMessage]);
-
     try {
-      const stream = await sendMessageStream(chatRef.current, messageText);
-      let fullResponseText = "";
+      const response = await sendMessage(chatRef.current, messageText);
+      const fullResponseText = response.text;
+      const groundingMetadata = response.candidates?.[0]?.groundingMetadata;
 
-      for await (const chunk of stream) {
-        fullResponseText += chunk.text;
-        setMessages(prev => prev.map(msg => 
-            msg.id === rhesusMessageId 
-                ? { ...msg, content: <>{fullResponseText}<BlinkingCursor /></> } 
-                : msg
-        ));
-      }
+      const parsedContent = parseResponse(fullResponseText, groundingMetadata);
 
-      const parsedContent = parseResponse(fullResponseText);
-      setMessages(prev => prev.map(msg => 
-        msg.id === rhesusMessageId 
-            ? { ...msg, content: parsedContent } 
-            : msg
-      ));
+      const rhesusMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        author: MessageAuthor.RHESUS,
+        content: parsedContent
+      };
+      setMessages(prev => [...prev, rhesusMessage]);
 
     } catch (error) {
         console.error("Failed to get response:", error);
         const errorMessage: Message = {
-            id: rhesusMessageId,
+            id: (Date.now() + 1).toString(),
             author: MessageAuthor.RHESUS,
             content: "I'm sorry, an error occurred. Please try again."
         };
-        setMessages(prev => prev.map(msg => msg.id === rhesusMessageId ? errorMessage : msg));
+        setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
     }
