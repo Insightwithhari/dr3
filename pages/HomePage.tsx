@@ -39,6 +39,13 @@ const HomePage: React.FC<HomePageProps> = ({ onAuthenticate }) => {
             </p>
         </div>
 
+        <div className="mt-10">
+            <img 
+                src="https://images.unsplash.com/photo-1554475901-4538ddfbccc2?q=80&w=600&h=600&auto=format&fit=crop" 
+                alt="Bioinformatics Research" 
+                className="w-full max-w-xs h-auto mx-auto rounded-lg shadow-xl border-4 border-slate-200 dark:border-slate-700"
+            />
+        </div>
       </div>
       
       <PasswordModal 
