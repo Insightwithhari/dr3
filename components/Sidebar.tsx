@@ -10,11 +10,13 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, currentPage, isAuthenticated }) => {
-  const NavLink: React.FC<{ page: Page; label: string; disabled?: boolean }> = ({ page, label, disabled = false }) => {
+  const NavLink: React.FC<{ page: Page; label: string; disabled?: boolean; glow?: boolean }> = ({ page, label, disabled = false, glow = false }) => {
     const isActive = currentPage === page;
     const activeClasses = 'bg-blue-500/20 text-white';
     const inactiveClasses = 'text-slate-300 hover:bg-slate-700 hover:text-white';
     const disabledClasses = 'text-slate-500 cursor-not-allowed';
+    const glowClasses = glow ? 'hover:shadow-[0_0_15px_theme(colors.blue.500/50%)] dark:hover:shadow-[0_0_15px_theme(colors.blue.400/40%)]' : '';
+
 
     return (
       <li>
@@ -24,7 +26,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, currentPage, isAuthe
             if (disabled) e.preventDefault();
             else onClose();
           }}
-          className={`w-full text-left px-4 py-3 block transition-colors rounded-r-md ${
+          className={`w-full text-left px-4 py-3 block rounded-r-md transition-all duration-300 ${glowClasses} ${
             disabled ? disabledClasses : (isActive ? activeClasses : inactiveClasses)
           }`}
           aria-disabled={disabled}
@@ -55,6 +57,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, currentPage, isAuthe
             <NavLink page="supervisor" label="Supervisor Page" />
             <NavLink page="about" label="About Us" />
             <NavLink page="contact" label="Contact Us" />
+            <NavLink page="quotes" label="Quotes" glow={true} />
           </ul>
         </nav>
         <div className="p-4 border-t border-slate-700">
