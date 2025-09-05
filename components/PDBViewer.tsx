@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { DownloadIcon, ShareIcon } from './icons';
+import { DownloadIcon, WhatsAppIcon } from './icons';
 
 declare const $3Dmol: any;
 
@@ -68,11 +68,11 @@ const PDBViewer: React.FC<PDBViewerProps> = ({ pdbId }) => {
       .catch(err => console.error("Download error:", err));
   };
 
-  const handleShare = () => {
+  const handleWhatsAppShare = () => {
+    const text = `Check out this protein structure on RCSB PDB: ${pdbId}`;
     const url = `https://www.rcsb.org/structure/${pdbId}`;
-    navigator.clipboard.writeText(url).then(() => {
-        alert(`Link for PDB ${pdbId} copied to clipboard!`);
-    });
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(`${text}\n${url}`)}`;
+    window.open(whatsappUrl, '_blank');
   };
 
   return (
@@ -82,8 +82,8 @@ const PDBViewer: React.FC<PDBViewerProps> = ({ pdbId }) => {
       <div ref={viewerRef} style={{ width: '100%', height: '400px', position: 'relative' }} />
       {!isLoading && !error && (
         <div className="absolute top-2 right-2 flex gap-2 z-10">
-            <button onClick={handleShare} className="p-2 bg-slate-800/70 text-white rounded-full hover:bg-slate-700 transition-colors" title="Share PDB Link">
-                <ShareIcon />
+            <button onClick={handleWhatsAppShare} className="p-2 bg-slate-800/70 text-white rounded-full hover:bg-slate-700 transition-colors" title="Share via WhatsApp">
+                <WhatsAppIcon className="w-5 h-5" />
             </button>
             <button onClick={handleDownload} className="p-2 bg-slate-800/70 text-white rounded-full hover:bg-slate-700 transition-colors" title="Download PDB file">
                 <DownloadIcon />
