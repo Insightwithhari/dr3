@@ -6,7 +6,8 @@ import ChatbotPage from './pages/ChatbotPage';
 import SupervisorPage from './pages/SupervisorPage';
 import AboutUsPage from './pages/AboutUsPage';
 import ContactUsPage from './pages/ContactUsPage';
-import QuotesPage from './pages/QuotesPage'; // Import the new QuotesPage
+import QuotesPage from './pages/QuotesPage';
+import LoginPage from './pages/LoginPage'; // Import the new LoginPage
 import { MenuIcon } from './components/icons';
 import ThemeToggle from './components/ThemeToggle';
 import DrRhesusPopup from './components/DrRhesusPopup';
@@ -20,14 +21,14 @@ const getPageFromHash = (): Page => {
     if (validPages.includes(hash as Page)) {
         return hash as Page;
     }
-    return 'home';
+    return 'home'; // Default to home after login
 };
 
 const App: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState<Page>(getPageFromHash());
-  const [theme, setTheme] = useState<Theme>(() => (localStorage.getItem('theme') as Theme) || 'dark');
   const [isAuthenticated, setIsAuthenticated] = useState(() => sessionStorage.getItem('isAuthenticated') === 'true');
+  const [currentPage, setCurrentPage] = useState<Page>(isAuthenticated ? getPageFromHash() : 'home');
+  const [theme, setTheme] = useState<Theme>(() => (localStorage.getItem('theme') as Theme) || 'dark');
   const [isRhesusPopupOpen, setRhesusPopupOpen] = useState(false);
 
   useEffect(() => {
@@ -43,32 +44,21 @@ const App: React.FC = () => {
   const handleAuthentication = useCallback(() => {
     sessionStorage.setItem('isAuthenticated', 'true');
     setIsAuthenticated(true);
-    window.location.replace('#chatbot');
-    setCurrentPage('chatbot');
+    window.location.hash = '#home'; // Go to home page after login
+    setCurrentPage('home');
   }, []);
   
   useEffect(() => {
     const handleHashChange = () => {
-      const newPage = getPageFromHash();
-      if (newPage === 'home' && isAuthenticated) {
-        window.location.hash = '#chatbot';
-        setCurrentPage('chatbot');
-        return;
-      }
-      if (newPage === 'chatbot' && !isAuthenticated) {
-        window.location.hash = '#home';
-        setCurrentPage('home');
-      } else {
-        setCurrentPage(newPage);
+      if (isAuthenticated) {
+        setCurrentPage(getPageFromHash());
       }
     };
     
     window.addEventListener('hashchange', handleHashChange);
     
-    // Initial check on load
-    handleHashChange();
-    if (!window.location.hash) {
-        window.location.hash = '#home';
+    if (isAuthenticated && !window.location.hash) {
+      window.location.hash = '#home';
     }
 
     return () => {
@@ -76,13 +66,17 @@ const App: React.FC = () => {
     };
   }, [isAuthenticated]);
 
+  if (!isAuthenticated) {
+    return <LoginPage onAuthenticate={handleAuthentication} />;
+  }
+
   const renderPage = () => {
     const pageContent = () => {
       switch (currentPage) {
         case 'home':
-          return <HomePage onAuthenticate={handleAuthentication} />;
+          return <HomePage />;
         case 'chatbot':
-          return isAuthenticated ? <ChatbotPage /> : <HomePage onAuthenticate={handleAuthentication} />;
+          return <ChatbotPage />;
         case 'supervisor':
           return <SupervisorPage />;
         case 'about':
@@ -92,7 +86,7 @@ const App: React.FC = () => {
         case 'quotes':
           return <QuotesPage />;
         default:
-          return <HomePage onAuthenticate={handleAuthentication} />;
+          return <HomePage />;
       }
     };
     return <div className="animate-fadeIn">{pageContent()}</div>;
@@ -105,7 +99,6 @@ const App: React.FC = () => {
         isOpen={isSidebarOpen} 
         onClose={() => setSidebarOpen(false)} 
         currentPage={currentPage}
-        isAuthenticated={isAuthenticated}
       />
       
       <div className="relative z-10 flex flex-col flex-grow">
@@ -118,7 +111,10 @@ const App: React.FC = () => {
             <MenuIcon />
           </button>
           <div className="text-center absolute left-1/2 -translate-x-1/2">
-            <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400 tracking-wider">The Dream Lab</h1>
+            <h1 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-200 tracking-wider">Welcome to The Dream Lab</h1>
+            <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-1 transition-all duration-300 hover:text-blue-500 dark:hover:text-blue-400 hover:shadow-[0_0_15px_theme(colors.blue.500/50%)] dark:hover:shadow-[0_0_15px_theme(colors.blue.400/40%)] rounded-md px-2">
+              - we explore the questions we want the answers for.
+            </p>
           </div>
           <ThemeToggle theme={theme} setTheme={setTheme} />
         </header>
